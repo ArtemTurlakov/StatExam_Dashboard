@@ -17,7 +17,7 @@ export default function Tables(props){
         if (e.count_on_exam == 0) continue
         
         const tData = arr[i][eval(`"${table}"`)].map((j, index) => {
-          return{id: index, name: j[type], count: j.count,
+          return{ name: j[type], id: index, count: j.count,
                 percents: ((j.count/arr[i].count_on_exam)*100).toFixed(1)}
            })
           tabs.push(
@@ -31,7 +31,7 @@ export default function Tables(props){
       <div style={{justifyContent: 'space-between', width: '100%'}}>
       <ul className='flex'>
           {tables.map((e) => (
-            <li key={e[0]}>
+            <li style={{width: '50%'}} key={e[0]}>
               <TabChart
                 data={e}
               />

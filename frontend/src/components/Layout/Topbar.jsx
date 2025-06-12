@@ -4,6 +4,7 @@ import {
     MenuUnfoldOutlined, 
     UserOutlined
   } from '@ant-design/icons';
+import UserProfile from './UserProfile';
 const {Header} = Layout;
 
 
@@ -19,9 +20,7 @@ return(
         fontSize: '16px',
         margin: 10,
     }}/>
-    <div className='absolute inset-y-0 right-0'>
-        <Avatar size={40}  style={{ backgroundColor: '#aaaaaa', margin: 12, }} icon={<UserOutlined />} />
-    </div>
+    <UserProfile/>
     
 </Header>
     )

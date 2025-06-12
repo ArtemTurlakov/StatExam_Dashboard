@@ -9,7 +9,7 @@ import {
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
   const columns = [
-    { field: 'name', headerName:"",  width: 200 },
+    { field: 'name', headerName:"",  width: 210 },
     {
         field: 'count',
         headerName: 'Чел.',
@@ -20,12 +20,12 @@ import Paper from '@mui/material/Paper';
         field: 'percents',
         headerName: '% от общего числа участников',
         type: 'number',
-        width: 160,
+        width: 130,
     }
   ];
 
 export default function TabChart(props){
-    const {data, i} = props
+    const {data} = props
     const [chart, setChart] = useState(false)
     const [e, setData] = useState(false)
 
@@ -54,7 +54,7 @@ export default function TabChart(props){
                         padding: 10,
                     }}/>
 
-                    <Title className='mx-35'>{e[0]}</Title>
+                    <Title className='mx-30'>{e[0]}</Title>
 
                     </span>
 

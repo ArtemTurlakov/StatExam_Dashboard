@@ -26,7 +26,6 @@ async def get_finals(schema, session: SessionDep):
              .group_by(e.final_points)
              .order_by(e.final_points))
     res = await MyQuery('finals_diag', query, session, FinalsDiagDTO).exec_with_model()
-    # print("f", res)
     return res
 
 async def get_marks(schema, session: SessionDep):
@@ -35,7 +34,6 @@ async def get_marks(schema, session: SessionDep):
              .group_by(e.score)
              .order_by(e.score))
     res = await MyQuery('finals_diag', query, session, MarksDiagDTO).exec_with_model()
-    # print("m",res)
     return res
 
 
@@ -64,7 +62,6 @@ async def get_finals_dynamic(schema, session: SessionDep):
              .order_by(e.final_points))
     res = await MyQuery('dynamic', query, session).exec_with_model()
     df = pd.DataFrame(res["dynamic"], columns=['final_points', 'count'])
-    # print(df)
     s = df['count'].sum()
     if s <= 0: return dict()
     fin = (df['count'] * df['final_points']).sum()

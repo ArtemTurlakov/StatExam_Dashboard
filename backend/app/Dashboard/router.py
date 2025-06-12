@@ -3,7 +3,7 @@ from sqlalchemy import select, func, desc, and_, cast, Boolean, distinct
 from sqlalchemy.orm import aliased
 
 from ..core.MyQuery import MyQuery
-from ..core.database import SessionDep, async_session
+from ..core.database import SessionDep
 from ..core.models import TestSchemasModel
 from .Marks.router import get_marks_counts
 from .models import StudentsModel, ExamStudent, StudentCategoryModel, SchoolsModel, SchoolKindsModel, AreasModel
