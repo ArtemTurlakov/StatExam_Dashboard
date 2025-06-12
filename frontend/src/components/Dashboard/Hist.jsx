@@ -20,7 +20,7 @@ export default function Hist(props) {
     <>
     {
     data ? <>
-        <Title>{data.year}</Title>
+        <Title className='self-center' level={3}>{data.year}</Title>
         <BarChart
             series={[{ 
                     data: diagData.map(function (obj)

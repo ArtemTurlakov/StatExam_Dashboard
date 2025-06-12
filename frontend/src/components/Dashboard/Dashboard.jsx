@@ -3,6 +3,7 @@ const {Content} = Layout;
 import Tables from './tables/Tables.jsx'
 import CountsTable from "./tables/countsTable.jsx";
 import Hist from './Hist.jsx';
+import Login from "../Login.jsx";
 
 const { Title } = Typography;
 
@@ -20,41 +21,47 @@ export default function Dashboard(props){
                 justifyContent: 'center',
                 padding: 24,
                 minHeight: 280,
+                display: 'flex',
+                flexDirection: 'column'
               }}
-            >
-            <Title style={{}}>{subject.label.replace(/^./, char => char.toUpperCase())}</Title>
 
+            >
+            <Title className="self-center">{subject.label.replace(/^./, char => char.toUpperCase())}</Title>
+            
+            <Title level={2}> Количество участников ЕГЭ по учебному предмету</Title>
             <CountsTable 
               data={{counts}}/>
 
-            <Title >{}</Title>
+            <Title level={2}>Процентное соотношение юношей и девушек, участвующих в ЕГЭ</Title>
             <Tables 
               data={counts}
               table={"sextable"}
               type={"sex"}
             />
 
-            <Title >{}</Title>
+            <Title level={2}>Количество участников экзамена в регионе по категориям</Title>
             <Tables 
               data={counts}
               table={"categories"}
               type={"description"}
             />
 
-            <Title >{}</Title>
+            <Title level={2}>Количество участников экзамена в регионе по типам ОО</Title>
             <Tables 
               data={counts}
               table={"OO"}
               type={"name"}
             />
             
-            <Title >{}</Title>
+            <Title level={2}>Количество участников ЕГЭ по учебному предмету по АТЕ региона</Title>
             <Tables 
               data={counts}
               table={"areas"}
               type={"name"}
             />
-            {diagData ? 
+            <Title level={2}>Диаграмма распределения тестовых баллов(оценок)</Title>
+            {diagData ?
+             
             <Hist
               data = {diagData}
             /> 

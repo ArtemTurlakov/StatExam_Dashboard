@@ -1,7 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
-
-
-
+import { createContext, useEffect, useState } from "react";
+import api from "../api.js";
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
@@ -9,20 +7,15 @@ export const UserProvider = (props) => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const requestOptions = {
-                method: "GET",
+            const response = await api({url:"/user", method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + token,
-                },
-            };
-
-            const response = await fetch("/user", requestOptions);
-
-            if (!response.ok){
+                }});
+            if (!response.status == 200){
                 setToken(null);
             }
-            localStorage.setItem(userToken, token);
+            localStorage.setItem("userToken", token);
         };
         fetchUser();
     }, [token]);

@@ -1,5 +1,3 @@
-from pydantic import BaseModel
-
 
 class MyQuery:
     def __init__(self, name: str, query, session, dtomodel=None):
@@ -10,9 +8,7 @@ class MyQuery:
 
     async def exec_with_model(self) -> dict:
         result = await self.session.execute(self.query)
-        # print(result)
         result_orm = result.all()
-        # print(result_orm)
         if self.dtomodel:
             res = [self.dtomodel
                       .model_validate(row, from_attributes=True)
