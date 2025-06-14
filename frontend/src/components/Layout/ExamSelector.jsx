@@ -1,24 +1,28 @@
-import { Tabs } from 'antd';
-import './selector.css'
-export default function ExamSelector({onExamChange}) {
-  const items = [
-    {
-      key: '1',
-      label: 'ОГЭ',
-    },
-    {
-      key: '2',
-      label: 'ЕГЭ',
-    },
-  ];
 
+import {ToggleButton , ToggleButtonGroup, Typography } from '@mui/material';
+import './selector.css'
+export default function ExamSelector({onExamChange, theme}) {
+  
   return (
-        <Tabs style={{paddingTop: 10}}
-          centered='true'
-          size='large'
-          type='card'
-          defaultActiveKey="1" 
-          items={items} onChange={onExamChange} />
+    <ToggleButtonGroup 
+      style={{width: '100%'}}
+      className='self-center'
+      fullWidth
+      exclusive
+      onChange={onExamChange}
+      aria-label="Grade"
+    >
+      <ToggleButton value="9">
+        <Typography color='white' variant="h6" sx={{ flexGrow: 1 }}>
+          ОГЭ
+        </Typography>
+      </ToggleButton>
+      <ToggleButton value="11">
+        <Typography color='white' variant="h6" sx={{ flexGrow: 1 }}>
+          ЕГЭ
+        </Typography>
+      </ToggleButton>
+    </ToggleButtonGroup>
   );
 };
 

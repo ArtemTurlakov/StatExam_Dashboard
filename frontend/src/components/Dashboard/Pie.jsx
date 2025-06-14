@@ -1,6 +1,3 @@
-
-
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 
@@ -28,7 +25,7 @@ export default function Pie(d) {
             ]}
             sx={{
                 [`& .${pieArcLabelClasses.root}`]: {
-                  fontWeight: 'bold',
+                  fontWeight: '',
                 },
               }}
             hideLegend={true}

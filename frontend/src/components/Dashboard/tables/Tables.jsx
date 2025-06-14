@@ -13,8 +13,7 @@ export default function Tables(props){
     useEffect(() =>{
       const tabs = []
       for( var i in arr){
-        const e = arr[i]
-        if (e.count_on_exam == 0) continue
+        if (arr[i].count_on_exam == 0) continue
         
         const tData = arr[i][eval(`"${table}"`)].map((j, index) => {
           return{ name: j[type], id: index, count: j.count,
@@ -31,7 +30,7 @@ export default function Tables(props){
       <div style={{justifyContent: 'space-between', width: '100%'}}>
       <ul className='flex'>
           {tables.map((e) => (
-            <li style={{width: '50%'}} key={e[0]}>
+            <li className='mr-4' style={{width: '50%'}} key={e[0]}>
               <TabChart
                 data={e}
               />
