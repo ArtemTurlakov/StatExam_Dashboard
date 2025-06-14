@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import { Menu, Layout, theme, Spin, Divider} from 'antd';
-
+import  {useEffect, useState} from 'react';
+import {CircularProgress, Box } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Menu, Layout, Divider, ConfigProvider} from 'antd';
 const {Sider} = Layout;
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import api from "../../api.js";
@@ -25,10 +26,14 @@ export default function MyLayout(){
   const [subjects, setSubjects] = useState([])
   const [data, setData] = useState(null)
   const [subject, setSubject] = useState(1)
-
-  const { 
-    token: { colorBgContainer},
-  } = theme.useToken();
+  const color = '#002766'
+  const theme = createTheme({
+  palette: {
+    primary: {
+      main: color,
+    },
+  },
+});
 
   const fetchSubjects = async () => {
     const resp = await api.get(`/subjects/`)
@@ -39,7 +44,6 @@ export default function MyLayout(){
       })
     )
     setSubjects(menuItems)
-    console.log(subjects)
   }
 
   const fetchDashboardData = async () => {
@@ -60,30 +64,46 @@ export default function MyLayout(){
   function handleClick(){
     setExamType(examType == 9 ? 11 : 9)
   }
+
   return(
+    <ThemeProvider theme={theme}>
+      <ConfigProvider
+          theme={{
+            components: {
+              Menu: {
+                darkItemBg: color
+              },
+              Layout: {
+                siderBg: color
+              },
+            },
+          }}
+        >
     <Layout>
-      <Sider style={siderStyle} trigger={null} 
+      <Sider  style={siderStyle} trigger={null} 
         collapsible collapsed={collapsed} 
         collapsedWidth="0">
-
-        <ExamSelector
-          onExamChange={() => handleClick()}/>
-
-        <Menu 
-          theme="dark" mode="inline" 
-          defaultSelectedKeys={['1']} 
-          onClick={(e) => (setSubject(e.key), console.log(subject))}
-          items={subjects
-                  .filter(s => s.grade == examType)
-                  .sort((a, b) => a.key - b.key)} />
-
+        
+          <div style={{width: '100%'}} className='flex '>
+          <ExamSelector className='self-center'
+            onExamChange={() => handleClick()}/>
+          </div>
+        
+          <Menu style={{color: '#ffffff'}}
+                  theme='dark' mode="inline" 
+                  defaultSelectedKeys={['1']} 
+                  onClick={(e) => (setSubject(e.key), console.log(e), console.log(subject))}
+                  items={subjects
+                          .filter(s => s.grade == examType)
+                          .sort((a, b) => a.key - b.key)} />
+       
       </Sider>
       <Layout>
         
         <Topbar
           collapsed={collapsed}
-          colorBgContainer={colorBgContainer}
-          Click={() => setCollapsed(!collapsed)}/>
+          Click={() => setCollapsed(!collapsed)}
+          theme={theme}/>
 
         <div className='mx-auto my-auto'>
           
@@ -93,11 +113,13 @@ export default function MyLayout(){
                 subject={subjects.filter(s => s.key == subject)[0]}
                 counts={data}/>
 
-              : <Spin/>
-            ) : <></>}
+              : <CircularProgress/>
+            ) : <CircularProgress/>}
         </div>
         <Divider type='vertical'/>
       </Layout>
     </Layout>
+     </ConfigProvider>
+    </ThemeProvider>
     )
 };

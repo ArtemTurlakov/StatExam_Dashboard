@@ -1,27 +1,33 @@
-import { Layout, Button, Avatar} from 'antd';
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined, 
-    UserOutlined
-  } from '@ant-design/icons';
+import { IconButton , AppBar, Box, Toolbar, Typography  } from '@mui/material';
+import {MenuOpenOutlined, MenuOutlined} from '@mui/icons-material';
+import { ThemeProvider } from '@mui/material/styles';
 import UserProfile from './UserProfile';
-const {Header} = Layout;
 
+export default function Topbar({collapsed, Click, theme}) {
 
-export default function Topbar({collapsed, colorBgContainer, Click}) {
 return(
-<Header style={{ padding: 0, top: 0,}} className='flex relative'>
-    <Button
-        type="text"
-        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined/>}
-        onClick={Click}
-        style={{
-        background: colorBgContainer,
-        fontSize: '16px',
-        margin: 10,
-    }}/>
-    <UserProfile/>
+    <ThemeProvider theme={theme}>
+        <Box sx={{ flexGrow: 1,  }}>
+            <AppBar position="static"  >
+                <Toolbar>
+                <IconButton 
+                        color="inherit"
+                        onClick={Click}
+                        style={{
+                        margin: 10,
+                        fontSize: '20px',
+                        }}                
+                    >
+                        {collapsed ? <MenuOutlined /> : <MenuOpenOutlined/>}
+                    </IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    StatExam-Dashboard
+                </Typography>
+                <UserProfile/>
+                </Toolbar>
+            </AppBar>
+        </Box>
+    </ThemeProvider>
     
-</Header>
     )
 };

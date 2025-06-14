@@ -1,26 +1,27 @@
 import {useState, useEffect} from 'react';
 import Pie from "../Pie.jsx";
-import { Typography, Button, theme, Spin } from 'antd';
-const { Title } = Typography;
-import {
-    PieChartOutlined,
-    TableOutlined
-  } from '@ant-design/icons';
+import {TableChartOutlined, PieChartOutlineOutlined} from '@mui/icons-material';
 import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
+import {Typography, CircularProgress, Paper, Button  } from '@mui/material';
+
   const columns = [
-    { field: 'name', headerName:"",  width: 210 },
+    { 
+        field: 'name', 
+        headerName:"",  
+        width: 150, 
+    },
     {
         field: 'count',
         headerName: 'Чел.',
         type: 'number',
-        width: 70,
+        width: 60,
+        filterable: false,
     },
     {
         field: 'percents',
-        headerName: '% от общего числа участников',
+        headerName: '% общего числа участников',
         type: 'number',
-        width: 130,
+        width: 80,
     }
   ];
 
@@ -29,56 +30,62 @@ export default function TabChart(props){
     const [chart, setChart] = useState(false)
     const [e, setData] = useState(false)
 
-    const { 
-        token: { colorBgContainer},
-      } = theme.useToken();
-
       useEffect(() =>{
         setData(data)
         
         }, [data])
     return (
-         <div style={{margin: 20, width: '90%', justifyContent: "center"}}>
+        <>
             {
                 e ? 
-                <>
-                    <span className='flex'>
-                    <Button
-                        type="text"
-                        icon={chart ? <PieChartOutlined /> : <TableOutlined/>}
-                        onClick={() => setChart(chart ? false : true)}
-                        style={{
-                        background: colorBgContainer,
-                        fontSize: '20px',
-                        margin: 10,
-                        padding: 10,
-                    }}/>
-
-                    <Title className='mx-30'>{e[0]}</Title>
-
+                
+                <div style={{margin: 0, height: (Object.keys(e[1]).length > 5 ? null : 300), 
+                    width: '100%',}}>
+                    <span className='flex justify-between'>
+                        <Button 
+                            color="inherit"
+                            startIcon={chart ? <TableChartOutlined/> : <PieChartOutlineOutlined />}
+                            onClick={() => setChart(chart ? false : true)}
+                            style={{
+                            fontSize: '20px',
+                            padding: 10,
+                        }}/>
+                        <div className='self-center'>
+                            <Typography variant="h5" className='m-auto'>{e[0]}</Typography>
+                        </div>
                     </span>
 
                     {chart ? 
-                    <div style={{width: '100%',justifyContent: 'center'}}>
-                        <div style={{width: '30em', height: '20em', marginInline: 'auto'}}>
+                    <div style={{width: '90%', marginInline: 'auto'}}>
+                        <div style={{width: '90%', height: '100%', marginInline: 'auto'}}>
                             <Pie
                                 data={e[1]}/>
                         </div>
                     </div>
                     :
-                    <Paper sx={{  height: Math.min( e[1].length *107, 350), width: '100%' }}>
+                    <Paper sx={{  height:  (Object.keys(e[1]).length > 3 ? 250 : null), width: '100%' }}>
                         <DataGrid
+                            style={{fontSize:12 }}
                             rows={e[1]}
                             columns={columns}
-                            sx={{ border: 1 }}
+                            sx={{ border: 1,
+                                 '& .MuiDataGrid-columnHeaderTitle': {
+                                    whiteSpace: 'normal',
+                                    lineHeight: 'normal', },
+                                '& .MuiDataGrid-cell': {
+                                    whiteSpace: 'wrap',
+                                    lineHeight: 'normal', },
+                                    }}
+                            density='compact'
+                            hideFooter
+                            rowHeight={70}
+                            columnHeaderHeight={80}
                         />
                     </Paper>
                     }
-                </>
-                :<Spin/>
+                </div>
+                : <CircularProgress />
             }
-        </div>
-        
-        
+        </>
     );
 };
