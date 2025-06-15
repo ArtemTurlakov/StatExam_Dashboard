@@ -49,6 +49,6 @@ async def get_current_user(session: SessionDep, token: str = fastapi.Depends(oau
         print("payload",payload)
         user = await session.execute(select(models.User).where(models.User.id == payload['id']))
     except:
-        raise fastapi.HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
+        raise fastapi.HTTPException(status_code=401, detail="")
 
     return User.model_validate(user.scalars().first())

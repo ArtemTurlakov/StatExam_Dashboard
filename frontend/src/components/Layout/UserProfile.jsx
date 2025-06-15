@@ -12,7 +12,7 @@ export default function UserProfile({}) {
     const id = open ? 'simple-popper' : undefined;
 
 
-    const [username, setToken] = useContext(UserContext)
+    const [, setToken, username] = useContext(UserContext)
 
     const handleLogout = () => {
         setToken(null);

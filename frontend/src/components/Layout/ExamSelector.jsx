@@ -1,7 +1,7 @@
 
 import {ToggleButton , ToggleButtonGroup, Typography } from '@mui/material';
 import './selector.css'
-export default function ExamSelector({onExamChange, theme}) {
+export default function ExamSelector({onExamChange}) {
   
   return (
     <ToggleButtonGroup 

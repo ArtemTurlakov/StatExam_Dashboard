@@ -1,5 +1,5 @@
 import  {useEffect, useState} from 'react';
-import {CircularProgress, Box } from '@mui/material';
+import {CircularProgress } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Menu, Layout, Divider, ConfigProvider} from 'antd';
 const {Sider} = Layout;
@@ -49,7 +49,6 @@ export default function MyLayout(){
   const fetchDashboardData = async () => {
     const resp = await api.get(`/dashboard/{grade, subject}?grade=${examType}&subject=${subject}` )
     const r = resp.data
-    console.log(r)
     setData(r)
   }
 
@@ -92,7 +91,7 @@ export default function MyLayout(){
           <Menu style={{color: '#ffffff'}}
                   theme='dark' mode="inline" 
                   defaultSelectedKeys={['1']} 
-                  onClick={(e) => (setSubject(e.key), console.log(e), console.log(subject))}
+                  onClick={(e) => (setSubject(e.key))}
                   items={subjects
                           .filter(s => s.grade == examType)
                           .sort((a, b) => a.key - b.key)} />

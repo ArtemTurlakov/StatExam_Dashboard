@@ -6,13 +6,11 @@ const columns = [
     { 
         field: 'year', 
         headerName:"Год",  
-        // width: 100,
     },
     {
         field: 'count',
         headerName: 'Чел.',
         type: 'number',
-        // width: 100,
     },
     {
         field: 'percents',
