@@ -43,7 +43,7 @@ async def create(user: UserCreate, session: SessionDep):
 async def generate_token(session: SessionDep, form_data: security.OAuth2PasswordRequestForm = fastapi.Depends(), ):
     user = await authenticate_user(form_data.username, form_data.password, session)
     if not user:
-        raise HTTPException(status_code=401, detail="Неверные реквизиты")
+        raise HTTPException(status_code=401, detail="Неверное имя пользователя или пароль")
 
     return await create_token(user)
 

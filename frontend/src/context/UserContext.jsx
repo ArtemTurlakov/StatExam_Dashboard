@@ -12,18 +12,22 @@ export const UserProvider = (props) => {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: "Bearer " + token,
-                }});
-            if (!response.status == 200){
-                setToken(null);
-            }
+                }
+            }).catch(function (error) {
+                    if (error.response) {
+                        setToken(null);
+                    } 
+                });
             localStorage.setItem("userToken", token);
-            setUsername(response.data.username)
+            if (response){
+                setUsername(response.data.username)
+            }
         };
         fetchUser();
     }, [token]);
 
     return (
-        <UserContext.Provider value={[username, setToken]}>
+        <UserContext.Provider value={[token, setToken, username]}>
             {props.children}
         </UserContext.Provider>
     )

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import { Menu, Layout} from 'antd';
 import api from "../../api.js";
 import ExamSelector from './ExamSelector.jsx';
@@ -32,7 +32,6 @@ export default function SubjectsSider(colorBgContainer){
       })
     )
     setSubjects(menuItems)
-    // console.log(subjects)
   }
 
   useEffect(() =>{

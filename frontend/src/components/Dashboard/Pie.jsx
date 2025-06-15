@@ -6,7 +6,6 @@ export default function Pie(d) {
     
       useEffect(() => {
         setTimeout(() => {
-            // console.log(d)
             const arr = Object.values(d)[0]
             const tData = arr.map((j, index) => {
                 return{id: index, label: Object.values(j)[0], value: j.count, percent: j.percents}

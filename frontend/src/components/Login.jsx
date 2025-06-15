@@ -2,30 +2,35 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import {TextField, Box, Button} from '@mui/material';
 import api from "../api.js";
+import { Typography } from "antd";
 
 export default function Login() {
 const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
-const [errorMessage, setErrorMessage] = useState("");
+const [error, setError] = useState("");
 const [, setToken] = useContext(UserContext);
 
 const submitLogin = async () => {
     const response = await api({url: `/token`, method: 'post',
                     headers: {"content-type": "application/x-www-form-urlencoded"},
-                    data: {username: username, password: password}});
+                    data: {username: username, password: password}})
+                .catch(function (error) {
+                    if (error.response) {
+                         setError(error.response.data.detail);
+                    } 
+                });;
 
-    if(!response.status == 200){
-        setErrorMessage(response.detail);
-    } else {
+    if(response){
         setToken(response.data.access_token);
+        setError("")
     }
+
 };
 
 const handleSubmit = (e) => {
     e.preventDefault();
     submitLogin();
 }
-
 
 return(
     <div >
@@ -43,7 +48,10 @@ return(
             label="Имя пользователя"
             type="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+                setUsername(e.target.value)
+                setError("")
+            }}
             />
             <TextField
             required
@@ -54,6 +62,7 @@ return(
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             />
+            <Typography>{error}</Typography>
             <Button 
             variant="contained"
             type='submit'

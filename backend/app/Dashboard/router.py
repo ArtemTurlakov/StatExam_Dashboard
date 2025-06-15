@@ -121,22 +121,14 @@ async def dashboard_counts(grade: int, subject: int, session: SessionDep):
     data = []
     schemas = await get_schemas(grade, subject, session)
     for schema in schemas:
-        students_count = await get_stud_count_all(grade, schema.exam_year, session)
-        count_on_exam = await get_on_exam_count(schema.id, session)
-        sex_count = await get_sex_count(schema.id, session)
-        categories_count = await get_categories_count(schema.id, session)
-        oo_counts = await get_oo_counts(schema.id, session)
-        areas_counts = await get_areas_counts(schema.id, session)
-        marks = await  get_marks_counts(schema, session)
-
         year = {'year': schema.exam_year}
-        year.update(students_count)
-        year.update(count_on_exam)
-        year.update(sex_count)
-        year.update(categories_count)
-        year.update(oo_counts)
-        year.update(areas_counts)
-        year.update(marks)
+        year.update( await get_stud_count_all(grade, schema.exam_year, session))
+        year.update( await get_on_exam_count(schema.id, session))
+        year.update( await get_sex_count(schema.id, session))
+        year.update( await get_categories_count(schema.id, session))
+        year.update( await get_oo_counts(schema.id, session))
+        year.update( await get_areas_counts(schema.id, session))
+        year.update( await  get_marks_counts(schema, session))
 
         data.append(year)
     return data

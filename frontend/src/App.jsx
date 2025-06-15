@@ -11,7 +11,7 @@ export default function App() {
       {!token ? 
         <div className='flex justify-center' style={{position: 'absolute', width: '100%', }}>
           <Paper sx={{m: 10, width: '40%', display: 'flex', flexDirection: 'column' }}
-          className='flex justify-around'>
+            className='flex justify-around'>
             <Typography variant="h2" className='self-center'>
                 StatExam-Dashboard
             </Typography >
