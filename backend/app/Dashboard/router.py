@@ -122,7 +122,10 @@ async def dashboard_counts(grade: int, subject: int, session: SessionDep):
     schemas = await get_schemas(grade, subject, session)
     for schema in schemas:
         year = {'year': schema.exam_year}
-        year.update( await get_stud_count_all(grade, schema.exam_year, session))
+        stud_c_all = await get_stud_count_all(grade, schema.exam_year, session)
+        if stud_c_all['students_at_all'] > 0:
+                year.update(stud_c_all)
+        else: break
         year.update( await get_on_exam_count(schema.id, session))
         year.update( await get_sex_count(schema.id, session))
         year.update( await get_categories_count(schema.id, session))

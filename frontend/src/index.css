@@ -5,3 +5,7 @@
   line-height: 1.5;
   font-weight: 400;
 }
+
+.ant-menu-item-selected {
+    background-color: #f98941 !important
+}

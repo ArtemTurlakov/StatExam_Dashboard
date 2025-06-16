@@ -6,7 +6,7 @@ const {Sider} = Layout;
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import api from "../../api.js";
 import Topbar from './Topbar.jsx';
-import ExamSelector from './ExamSelector.jsx';
+import GradeSelector from './GradeSelector.jsx';
 
 
 const siderStyle = {
@@ -22,11 +22,11 @@ const siderStyle = {
 
 export default function MyLayout(){
   const [collapsed, setCollapsed] = useState(false);
-  const [examType, setExamType] = useState(9);
+  const [grade, setGrade] = useState(9);
   const [subjects, setSubjects] = useState([])
   const [data, setData] = useState(null)
   const [subject, setSubject] = useState(1)
-  const color = '#002766'
+  const color = '#238bc8'
   const theme = createTheme({
   palette: {
     primary: {
@@ -47,7 +47,7 @@ export default function MyLayout(){
   }
 
   const fetchDashboardData = async () => {
-    const resp = await api.get(`/dashboard/{grade, subject}?grade=${examType}&subject=${subject}` )
+    const resp = await api.get(`/dashboard/{grade, subject}?grade=${grade}&subject=${subject}` )
     const r = resp.data
     setData(r)
   }
@@ -58,11 +58,7 @@ export default function MyLayout(){
 
   useEffect(() =>{
     fetchDashboardData()
-  }, [examType, subject])
-
-  function handleClick(){
-    setExamType(examType == 9 ? 11 : 9)
-  }
+  }, [grade, subject])
 
   return(
     <ThemeProvider theme={theme}>
@@ -84,18 +80,20 @@ export default function MyLayout(){
         collapsedWidth="0">
         
           <div style={{width: '100%'}} className='flex '>
-          <ExamSelector className='self-center'
+          <GradeSelector className='self-center'
+            grade={grade}
+            setGrade={setGrade}
             onExamChange={() => handleClick()}/>
           </div>
         
-          <Menu style={{color: '#ffffff'}}
-                  theme='dark' mode="inline" 
-                  defaultSelectedKeys={['1']} 
-                  onClick={(e) => (setSubject(e.key))}
-                  items={subjects
-                          .filter(s => s.grade == examType)
-                          .sort((a, b) => a.key - b.key)} />
-       
+          <Menu
+            theme='dark' mode="inline" 
+            defaultSelectedKeys={['1']} 
+            onClick={(e) => (setSubject(e.key))}
+            items={subjects
+                    .filter(s => s.grade == grade)
+                    .sort((a, b) => a.key - b.key)}
+            />
       </Sider>
       <Layout>
         
