@@ -46,7 +46,6 @@ async def create_token(user: models.User):
 async def get_current_user(session: SessionDep, token: str = fastapi.Depends(oauth2schema), ):
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
-        print("payload",payload)
         user = await session.execute(select(models.User).where(models.User.id == payload['id']))
     except:
         raise fastapi.HTTPException(status_code=401, detail="")

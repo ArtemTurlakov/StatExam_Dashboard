@@ -1,8 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import {TextField, Box, Button} from '@mui/material';
+import {TextField, Box, Button, Typography} from '@mui/material';
 import api from "../api.js";
-import { Typography } from "antd";
 
 export default function Login() {
 const [username, setUsername] = useState("");
@@ -64,8 +63,8 @@ return(
             />
             <Typography>{error}</Typography>
             <Button 
-            variant="contained"
-            type='submit'
+                variant="contained"
+                type='submit'
             >
                 Войти
             </Button>

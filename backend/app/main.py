@@ -9,6 +9,7 @@ from app.core.schemas import UserCreate, User
 from .Dashboard.router import router as dashboard_router
 from .Subjects.router import router as subjects_router
 from .Dashboard.Marks.router import router as marks_router
+from .Dashboard.Report.router import router as report_router
 
 app = FastAPI()
 
@@ -55,6 +56,7 @@ async def get_user(user: User = fastapi.Depends(get_current_user)):
 app.include_router(router=subjects_router)
 app.include_router(router=dashboard_router)
 app.include_router(router=marks_router)
+app.include_router(router=report_router)
 
 
 if __name__=="__main__":

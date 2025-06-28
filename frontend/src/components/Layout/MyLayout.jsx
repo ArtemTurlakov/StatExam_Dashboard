@@ -108,7 +108,9 @@ export default function MyLayout(){
               data ? 
               <Dashboard 
                 subject={subjects.filter(s => s.key == subject)[0]}
-                counts={data}/>
+                counts={data}
+                grade={grade}
+                subjectKey={subject}/>
 
               : <CircularProgress/>
             ) : <CircularProgress/>}
