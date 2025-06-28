@@ -37,7 +37,6 @@ def doc_table(doc, data, type, subtype, label):
 @router.get("/{grade, subject, name, filename}",)
 async def get_report(grade, subject, name, filename):
     data = CACHE.get(f'{grade}-{subject}', 0)
-    print(data[0])
     cols = len(data)
     doc = Document("app/Dashboard/Report/Шаблон_отчета.docx")
     e = 'ОГЭ' if grade == "9" else 'ЕГЭ'
