@@ -17,7 +17,7 @@ class StudentsSexCountsDTO(BaseModel):
     sex: bool|str
     count: int
     @field_validator("sex", mode='before')
-    def translate(cls, raw: bool) -> str:
+    def translate(raw: bool) -> str:
         sex = "Женский" if raw else "Мужской"
         return sex
 
